@@ -1,28 +1,28 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import axios from 'axios';
 
 export default class Form extends Component {
-    constructor (){
+    constructor() {
         super()
-        this.state={
+        this.state = {
             name: "",
             price: 0,
-            imgurl: ""
+            imgurl: "",
         }
     }
 
     //Handle the change event for each input field
     handleChangeImg = (e) => {
-        this.setState({imgurl: e.target.value})
+        this.setState({ imgurl: e.target.value })
     }
 
     handleChangeName = (e) => {
 
-        this.setState({name: e.target.value})
+        this.setState({ name: e.target.value })
     }
 
     handleChangePrice = (e) => {
-        this.setState({price: e.target.value})
+        this.setState({ price: e.target.value })
     }
 
     //Event handler for the cancel button on click
@@ -43,20 +43,25 @@ export default class Form extends Component {
         }
 
         axios.post("/api/inventory", newProduct).then(res => {
-          console.log("POST Request", res)
-          this.props.allProduct()
+            console.log("POST Request", res)
+            this.props.allProduct()
             this.handleReset()
         })
-        }
+    }
 
-    render (){
-        return(
+    render() {
+        return (
             <div>
-                <input placeholder="Image URL" value={this.state.imgurl} onChange ={this.handleChangeImg} ></input>
+                <h4> Image URL: </h4>
+                <input placeholder="Image URL" value={this.state.imgurl} onChange={this.handleChangeImg} ></input>
+                <h4> Product Name:</h4>
                 <input placeholder="Name" value={this.state.name} onChange={this.handleChangeName}></input>
+                <h4> Price:</h4>
                 <input value={this.state.price} onChange={this.handleChangePrice}></input>
-                <button onClick={this.handleReset}>Cancel</button>
-                <button onClick ={this.handleAddProduct}>Add to Inventory</button>
+                <div className="formBtnContainer">
+                    <button onClick={this.handleReset}>Cancel</button>
+                    <button onClick={this.handleAddProduct}>Add to Inventory</button>
+                </div>
             </div>
         )
     }
