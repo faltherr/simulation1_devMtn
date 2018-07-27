@@ -8,7 +8,6 @@ const app = express();
 
 //Require your controller
 const pc = require('./controller')
-
 //Setup database conncetion
 massive(process.env.CONNECTION_STRING).then(db=>{
     app.set('db', db)
@@ -24,6 +23,7 @@ app.use(cors())
 //REST API Here
 app.get('/api/inventory', pc.getProduct)
 app.post('/api/inventory', pc.addProduct)
+app.delete('/api/inventory/:id', pc.deleteItem)
 
 
 const port = 3009;

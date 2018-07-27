@@ -14,23 +14,18 @@ class App extends Component {
     }
   }
 
-  componentDidMount(){
-  axios.get('http://localhost:3009/api/inventory').then( res => {
-    console.log("GET Hit", res)
+  // Method to pull data from DB for a render
+  // Had to bind this keyword
+  // Also this function is passed down to the form component and the dashboard component
+  componentDidMount = () => {
+  axios.get('/api/inventory').then( res => {
+    // console.log("GET Hit", res)
     this.setState({
       inventory: res.data
     })
   })
   }
 
-
-
-
-
-
-
-
-  
 
   render() {
     return (
@@ -40,10 +35,10 @@ class App extends Component {
         </div>
         <div className="mainBody">
           <div className="dashboard">
-            <Dashboard inventory={this.state.inventory} />
+            <Dashboard inventory={this.state.inventory}  allProduct={this.componentDidMount} />
           </div>
           <div className="form">
-            <Form />
+            <Form allProduct={this.componentDidMount}/>
           </div>
         </div>
       </div >
